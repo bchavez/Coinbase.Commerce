@@ -1,10 +1,11 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/3nq1hvf67yp0nswg/branch/master?svg=true)](https://ci.appveyor.com/project/bchavez/coinbase-commerce/branch/master) [![Nuget](https://img.shields.io/nuget/v/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) [![Users](https://img.shields.io/nuget/dt/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/coinbase_commerce.png" align='right' />
-Coinbase.Commerce
+
+Coinbase.Commerce for .NET and C#
 =================
 
 Project Description
 -------------------
-:moneybag: A C# API library wrapper and HTTP client implementation of the [**Coinbase Commerce** API](https://commerce.coinbase.com/docs/).
+:moneybag: A C# API library wrapper and HTTP client implementation for the [**Coinbase Commerce** API](https://commerce.coinbase.com/docs/).
 
 #### Supported Platforms
 * **.NET Standard 1.3** or later
@@ -24,6 +25,11 @@ Nuget Package **[Coinbase.Commerce](https://www.nuget.org/packages/Coinbase.Comm
 Install-Package Coinbase
 ```
 
+Usage
+-----
+
+
+
 Building
 --------
 * Download the source code.
@@ -31,6 +37,5 @@ Building
 
 Upon successful build, the results will be in the `\__compile` directory. If you want to build NuGet packages, run `build.cmd pack` and the NuGet packages will be in `__package`.
 
-
-Usage
------
+---
+*Note: This application/third-party library is not directly supported by Coinbase Inc. Coinbase Inc. makes no claims about this application/third-party library.  This application/third-party library is not endorsed or certified by Coinbase Inc.*
