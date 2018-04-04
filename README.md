@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/3nq1hvf67yp0nswg/branch/master?svg=true)](https://ci.appveyor.com/project/bchavez/coinbase-commerce/branch/master) [![Nuget](https://img.shields.io/nuget/v/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase/) [![Users](https://img.shields.io/nuget/dt/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/coinbase_commerce.png" align='right' />
+[![Build status](https://ci.appveyor.com/api/projects/status/3nq1hvf67yp0nswg/branch/master?svg=true)](https://ci.appveyor.com/project/bchavez/coinbase-commerce/branch/master) [![Nuget](https://img.shields.io/nuget/v/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) [![Users](https://img.shields.io/nuget/dt/Coinbase.Commerce.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/coinbase_commerce.png" align='right' />
 Coinbase.Commerce
 =================
 
@@ -21,9 +21,7 @@ Project Description
 Nuget Package **[Coinbase.Commerce](https://www.nuget.org/packages/Coinbase.Commerce/)**
 
 ```
-
 Install-Package Coinbase
-
 ```
 
 Building
