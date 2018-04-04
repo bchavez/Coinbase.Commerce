@@ -3,6 +3,24 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+#custom
+**.lock.json
+*.history.nuspec
+**/.vs/**
+**/.idea/**
+/Source/packages**
+paket.lock
+.fake
+.paket/paket.exe
+/Source/.paket/**
+__test
+
+/__package
+/__compile
+/Source/Bogus.snk
+
+Source/Builder/node_modules/**
+
 # User-specific files
 *.suo
 *.user
