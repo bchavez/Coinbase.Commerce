@@ -10,8 +10,7 @@ init:
               Set-AppveyorBuildVariable -Name "IsPreRelease" -Value False
             }
 
-build_script: 
-  - build.cmd ci
+build_script: build.cmd ci
 
 test_script:
   - build.cmd citest
