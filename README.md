@@ -11,14 +11,12 @@ Project Description
 * **.NET Framework 4.5** or later
 
 #### Crypto Tip Jar
-* :dollar: **Bitcoin**: `1KgpR5rQmFpfvxQKdPsL9jU8FPf35xmjvn`
-* :pound: **Litecoin**: `LXWELKEw124ryu3hbwzBJPUy81odeLthkv`
-* :euro: **Ethereum**: `0xeb294D2BCb1Cf25cBEBd0bF55160aA655F82D8c0`
+<a href="https://commerce.coinbase.com/checkout/f16cd3cc-8a70-456b-beeb-ee0129cc4a0c"><img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/tipjar.png" /></a>
 * :dog2: **Dogecoin**: `DGVC2drEMt41sEzEHSsiE3VTrgsQxGn5qe`
 
 
 ### Download & Install
-Nuget Package **[Coinbase.Commerce](https://www.nuget.org/packages/Coinbase.Commerce/)**
+**Nuget Package [Coinbase.Commerce](https://www.nuget.org/packages/Coinbase.Commerce/)**
 
 ```
 Install-Package Coinbase.Commerce
@@ -35,8 +33,9 @@ Suppose you want to charge a customer **1.00 USD** for a candy bar and you'd lik
 ```csharp
 var commerceApi = new CommerceApi(apiKey);
 
-// Something that identifies the customer on your system with
-// the payment the customer is about to make.
+// Create a unique identifier to associate
+// the customer in your system with the
+// crypto payment they are about to make.
 var customerId = Guid.NewGuid();
 
 var charge = new CreateCharge
@@ -73,9 +72,9 @@ When the customer is redirected to the `HostedUrl` checkout page on **Coinbase**
 It's important to keep in mind that the customer has **15 minutes** to complete the payment; otherwise the payment will fail.
 
 ### Look Ma! No Redirects!
-It totally possible to perform a checkout without any redirects. *What?!* You'll just need to roll your own custom **UI**.
+It totally possible to perform a checkout without any redirects. *"Whaaaat?!"* You just need to roll your own custom **UI**.
 
-In the previous example, if the charge creation was successful, you should get back a `Charge` object in `response.Data` that looks similar to the object below:
+In the previous example, if the charge creation was successful, you will get back a `Charge` object in `response.Data` that looks similar to the object below:
 
 ```json
 {
@@ -145,8 +144,8 @@ The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of 
 
 ```csharp
 if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Json.Request.Body) ){
-   // The request is legit and an authentic message from Coinbase
-   // It's safe to deserialize the JSON body 
+   // The request is legit and authentic from Coinbase.
+   // It's safe to deserialize the JSON body. 
    var webhook = JsonConvert.DeserializeObject<Webhook>(Json.Request.Body);
 
    var chargeInfo = webhook.Event.DataAs<Charge>();
@@ -161,6 +160,7 @@ if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Json.Request.Bo
       // The charge was created just now.
       // Do something with the newly created
       // event.
+
       Database.PaymentPending(customerId)
    } 
    else if( webhook.Event.IsChargeConfirmed )
