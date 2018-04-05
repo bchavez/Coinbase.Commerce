@@ -116,9 +116,9 @@ In the previous example, if the charge creation was successful, you should get b
 Wonderful! Notice the `data.addresses` dictionary of `bitcoin`, `ethereum` and `litecoin` addresses above. You can use these addresses to generate **QR codes** in your custom **UI**. The same timelimit and rules apply, the customer has **15 minutes** to complete the payment. 
 
 ### Webhooks: 'Don't call us, we'll call you...'
-If you want to receive notifications on your server when a payment is *created*, *confirmed* (aka completed), or *failed* you'll need to listen for events from **Coinbase** on your server. You do this via [Webhooks](https://commerce.coinbase.com/docs/api/#webhooks).
+If you want to receive notifications on your server when a payment is *created*, *confirmed* (aka completed), or *failed* you'll need to listen for events from **Coinbase** on your server. You can do this using [Webhooks](https://commerce.coinbase.com/docs/api/#webhooks).
 
-Go to the **Settings** tab in your account and create a **Webhook Subscription** as shown below:
+Go to the **Settings** tab in your **Coinbase Commerce** account and create a **Webhook Subscription** as shown below:
 
 <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/webhook_sub.png" />
 
@@ -141,13 +141,13 @@ The **two** important pieces of information you need to extract from this **HTTP
   * The `X-Cc-Webhook-Signature` header value.
   * The **HTTP** body **JSON** payload.
 
-The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of the JSON **HTTP** body computed using your **Webhook Shared Secret** as a key. You'll need to verify the authenticity of the callback with the following **C#** code:
+The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of the **HTTP** message body computed using your **Webhook Shared Secret** as a key. You'll need to verify the authenticity of the callback with the following **C#** code:
 
 ```csharp
-if( WebhookHelper.IsValid("sharedSecret", webhookHeaderValue, Json.Request.Body) ){
+if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Json.Request.Body) ){
    // The request is legit and an authentic message from Coinbase
    // It's safe to deserialize the JSON body 
-   var webhook = JsonConvert.DeserializeObject<Webhook>(Examples.Webhook);
+   var webhook = JsonConvert.DeserializeObject<Webhook>(Json.Request.Body);
 
    var chargeInfo = webhook.Event.DataAs<Charge>();
    var customerId = chargeInfo.Metadata["customerId"].ToObject<string>();
@@ -178,6 +178,7 @@ else {
    // Log the requesting IP address and HTTP body. 
 }
 ```
+And you're done! **Happy crypto shopping!** :tada: 
 
 
 Building
