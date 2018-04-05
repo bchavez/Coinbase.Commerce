@@ -65,11 +65,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommerceTests.cs" />
+    <Compile Include="CommerceApiTests.cs" />
     <Compile Include="Examples.cs" />
     <Compile Include="ExtensionsForTesting.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebhookTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Coinbase.Commerce\Coinbase.Commerce.csproj">

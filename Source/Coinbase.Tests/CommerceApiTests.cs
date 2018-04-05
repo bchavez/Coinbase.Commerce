@@ -5,7 +5,6 @@ using Coinbase.Commerce;
 using Coinbase.Commerce.Models;
 using FluentAssertions;
 using Flurl.Http.Testing;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -13,7 +12,7 @@ using NUnit.Framework;
 namespace Coinbase.Tests
 {
    [TestFixture]
-   public class CommerceTests
+   public class CommerceApiTests
    {
       private HttpTest server;
       private CommerceApi com;
@@ -335,7 +334,5 @@ namespace Coinbase.Tests
             .WithVerb(HttpMethod.Get);
       }
 
-
    }
-
 }

@@ -5,8 +5,7 @@ Coinbase.Commerce for .NET and C#
 
 Project Description
 -------------------
-:moneybag: A C# API library and HTTP client implementation for the [**Coinbase Commerce** API](https://commerce.coinbase.com/docs/).
-
+:moneybag: A **C#** API library and HTTP client implementation for the [**Coinbase Commerce** API](https://commerce.coinbase.com/docs/).
 #### Supported Platforms
 * **.NET Standard 1.3** or later
 * **.NET Framework 4.5** or later
@@ -27,8 +26,11 @@ Install-Package Coinbase.Commerce
 
 Usage
 -----
-### A Simple Payment Page
-Suppose you want to charge a customer **1.00 USD** for a candy bar and you want to receive payment in concurrency like **Bitcoin** or **Ethereum**. The following **C#** creates a hosted payment page using the **Coinbase Commerce API**:
+### Getting Started
+Before you do anything, you'll need to create **Coinbase Commerce** account. You can sign up [here](https://commerce.coinbase.com/).
+
+### Receiving A Simple Crypto Payment
+Suppose you want to charge a customer **1.00 USD** for a candy bar and you'd like to receive payment in concurrency like **Bitcoin**, **Ethereum** or **Litecoin**. The following **C#** creates a checkout page hosted at **Coinbase Commerce**:
 
 ```csharp
 var commerceApi = new CommerceApi(apiKey);
@@ -42,7 +44,7 @@ var charge = new CreateCharge
       Name = "Candy Bar",
       Description = "Sweet Tasting Chocolate",
       PricingType = PricingType.FixedPrice,
-      LocalPrice = new Money { Amount = 1.00m, Currency = "USD"},
+      LocalPrice = new Money {Amount = 1.00m, Currency = "USD"},
       Metadata =
          {
             {"customerId", customerId }
@@ -64,16 +66,16 @@ if( response.HasError() )
 // else, send the user to the hosted checkout page at Coinbase.
 Server.Redirect(response.Data.HostedUrl);
 ```
-When the customer's browser is redirected to the `HostedUrl` the customer will be allowed to choose a method of payment:
+When the customer is redirected to the `HostedUrl` checkout page on **Coinbase** the customer can pick their preference of cryptocurrency to pay with as shown below:  
 
 <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/charge.png" />
 
 It's important to keep in mind that the customer has **15 minutes** to complete the payment; otherwise the payment will fail.
 
 ### Look Ma! No Redirects!
-It's possible to create your own custom **UI** with **QR codes** for payment.
+It totally possible to perform a checkout without any redirects. *What?!* You'll just need to roll your own custom **UI**.
 
-In the previous example, if the charge creation was successful, you should get back a `Charge` object in `response.Data` that looks like:
+In the previous example, if the charge creation was successful, you should get back a `Charge` object in `response.Data` that looks similar to the object below:
 
 ```json
 {
@@ -113,8 +115,70 @@ In the previous example, if the charge creation was successful, you should get b
 ```
 Wonderful! Notice the `data.addresses` dictionary of `bitcoin`, `ethereum` and `litecoin` addresses above. You can use these addresses to generate **QR codes** in your custom **UI**. The same timelimit and rules apply, the customer has **15 minutes** to complete the payment. 
 
-### Webhooks: Don't call us, we'll call you...
-If you want to receive a notification on your server when a payment has been created, completed, or failed, you can use [webhooks](https://commerce.coinbase.com/docs/api/#webhooks). Once you've sub  
+### Webhooks: 'Don't call us, we'll call you...'
+If you want to receive notifications on your server when a payment is *created*, *confirmed* (aka completed), or *failed* you'll need to listen for events from **Coinbase** on your server. You do this via [Webhooks](https://commerce.coinbase.com/docs/api/#webhooks).
+
+Go to the **Settings** tab in your account and create a **Webhook Subscription** as shown below:
+
+<img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/webhook_sub.png" />
+
+When a `charge:created`, `charge:confirmed`, or `charge:failed` occurs, **Coinbase** will `POST` **JSON** to your `/callmebackhere` endpoint. The **HTTP** `POST` looks something like:
+
+```
+POST /callmebackhere HTTP/1.1
+User-Agent: weipay-webhooks
+Content-Type: application/json
+X-Cc-Webhook-Signature: cb22789c9d5c344a10e0474f134db39e25eb3bbf5a1b1a5e89b507f15ea9519c
+Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+Accept: */*
+Connection: close
+Content-Length: 1122
+
+{"attempt_number":1,"event":{"api_version":"2018-03-22","created_at":"2018-04-04T23:49:00Z","data":{"code":"8EKMDPVQ","name":"Candy Bar",...."description":"Sweet Tasting Chocolate","pricing_type":"fixed_price"},"id":"f6972c57-c100-4e64-b47c-193adecfadc6","type":"charge:created"}}
+```   
+The **two** important pieces of information you need to extract from this **HTTP** `POST` callback are:
+
+  * The `X-Cc-Webhook-Signature` header value.
+  * The **HTTP** body **JSON** payload.
+
+The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of the JSON **HTTP** body computed using your **Webhook Shared Secret** as a key. You'll need to verify the authenticity of the callback with the following **C#** code:
+
+```csharp
+if( WebhookHelper.IsValid("sharedSecret", webhookHeaderValue, Json.Request.Body) ){
+   // The request is legit and an authentic message from Coinbase
+   // It's safe to deserialize the JSON body 
+   var webhook = JsonConvert.DeserializeObject<Webhook>(Examples.Webhook);
+
+   var chargeInfo = webhook.Event.DataAs<Charge>();
+   var customerId = chargeInfo.Metadata["customerId"].ToObject<string>();
+
+   if (webhook.Event.IsChargeFailed)
+   {
+      // The payment failed. Log something.
+   }
+   else if (webhook.Event.IsChargeCreated)
+   {
+      // The charge was created just now.
+      // Do something with the newly created
+      // event.
+      Database.PaymentPending(customerId)
+   } 
+   else if( webhook.Event.IsChargeConfirmed )
+   {
+      // The payment was confirmed.
+      // Fulfill the order
+
+      Database.ShipCandyBar(customerId)
+   }
+
+   return Response.Ok();
+}
+else {
+   // Some hackery going on. Someone is trying to spoof payment events!
+   // Log the requesting IP address and HTTP body. 
+}
+```
+
 
 Building
 --------

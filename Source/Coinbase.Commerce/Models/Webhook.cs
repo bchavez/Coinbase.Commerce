@@ -16,7 +16,7 @@ namespace Coinbase.Commerce.Models
       /// The Webhook UUID
       /// </summary>
       [JsonProperty("id")]
-      public long Id { get; set; }
+      public string Id { get; set; }
 
       /// <summary>
       /// Delivery schedule time
@@ -94,18 +94,18 @@ namespace Coinbase.Commerce.Models
       /// New charge is created
       /// </summary>
       [JsonIgnore]
-      public bool IsTypeChargeCreated => "charge:created".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+      public bool IsChargeCreated => "charge:created".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
 
       /// <summary>
       /// Charge has been confirmed and the associated payment is completed
       /// </summary>
       [JsonIgnore]
-      public bool IsTypeChargeConfirmed => "charge:confirmed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+      public bool IsChargeConfirmed => "charge:confirmed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
 
       /// <summary>
       /// Charge failed to complete
       /// </summary>
       [JsonIgnore]
-      public bool IsTypeChargeFailed => "charge:failed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+      public bool IsChargeFailed => "charge:failed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
    }
 }
