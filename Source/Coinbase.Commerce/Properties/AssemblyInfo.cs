@@ -5,10 +5,10 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitleAttribute("Coinbase Commerce API for .NET")]
 [assembly: AssemblyProductAttribute("Coinbase.Commerce")]
 [assembly: AssemblyCompanyAttribute("Brian Chavez")]
-[assembly: AssemblyCopyrightAttribute("Brian Chavez © 2018")]
+[assembly: AssemblyCopyrightAttribute("Brian Chavez © 2015")]
 [assembly: AssemblyVersionAttribute("0.0.0")]
 [assembly: AssemblyFileVersionAttribute("0.0.0")]
-[assembly: AssemblyInformationalVersionAttribute("0.0.0-localbuild built on 4/4/2018 7:51:03 AM")]
+[assembly: AssemblyInformationalVersionAttribute("0.0.0-localbuild built on 1/1/2015 12:00:00 AM")]
 [assembly: AssemblyTrademarkAttribute("MIT License")]
 [assembly: AssemblyDescriptionAttribute("https://github.com/bchavez/Coinbase.Commerce")]
 [assembly: InternalsVisibleToAttribute("Coinbase.Tests")]
@@ -17,10 +17,10 @@ namespace System {
         internal const System.String AssemblyTitle = "Coinbase Commerce API for .NET";
         internal const System.String AssemblyProduct = "Coinbase.Commerce";
         internal const System.String AssemblyCompany = "Brian Chavez";
-        internal const System.String AssemblyCopyright = "Brian Chavez © 2018";
+        internal const System.String AssemblyCopyright = "Brian Chavez © 2015";
         internal const System.String AssemblyVersion = "0.0.0";
         internal const System.String AssemblyFileVersion = "0.0.0";
-        internal const System.String AssemblyInformationalVersion = "0.0.0-localbuild built on 4/4/2018 7:51:03 AM";
+        internal const System.String AssemblyInformationalVersion = "0.0.0-localbuild built on 1/1/2015 12:00:00 AM";
         internal const System.String AssemblyTrademark = "MIT License";
         internal const System.String AssemblyDescription = "https://github.com/bchavez/Coinbase.Commerce";
         internal const System.String InternalsVisibleTo = "Coinbase.Tests";

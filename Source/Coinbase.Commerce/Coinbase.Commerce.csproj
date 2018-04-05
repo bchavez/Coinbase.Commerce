@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A .NET implementation of the Coinbase Commerce API for cryptocurrency payments. Coinbase Commerce is the easiest and safest way for a business to start accepting digital currency payments. Works with Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), and Bitcoin Cash (BCH)!</Description>
-    <PackageReleaseNotes>### v1.0.0
-* Initial release.
-Full History Here: https://github.com/bchavez/Coinbase.Commerce/blob/master/HISTORY.md</PackageReleaseNotes>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
     <Version>0.0.0-localbuild</Version>
     <Authors>Brian Chavez</Authors>
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
