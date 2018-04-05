@@ -48,7 +48,7 @@ var charge = new CreateCharge
       LocalPrice = new Money {Amount = 1.00m, Currency = "USD"},
       Metadata = // Here we associate the customer ID in our DB with the charge.
          {       // You can put any custom info here but keep it minimal.
-            {"customerId", customerId }
+            {"customerId", customerId}
          },
    };
 
@@ -149,10 +149,10 @@ The `WebhookHelper` static class included with this library does all the heavy l
 The following **C#** code shows how to use the `WebhookHelper` to validate callbacks from **Coinbase**:
 
 ```csharp
-if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Json.Request.Body) ){
+if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Request.Body.Json) ){
    // The request is legit and an authentic message from Coinbase.
    // It's safe to deserialize the JSON body. 
-   var webhook = JsonConvert.DeserializeObject<Webhook>(Json.Request.Body);
+   var webhook = JsonConvert.DeserializeObject<Webhook>(Request.Body.Json);
 
    var chargeInfo = webhook.Event.DataAs<Charge>();
 
