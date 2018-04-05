@@ -17,7 +17,8 @@ __test
 
 /__package
 /__compile
-/Source/Bogus.snk
+/Source/*.snk
+/Source/Coinbase.Tests/.secrets.txt
 
 Source/Builder/node_modules/**
 
@@ -304,3 +305,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+

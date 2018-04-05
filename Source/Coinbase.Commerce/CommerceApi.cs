@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Coinbase.Commerce.Models;
@@ -12,49 +10,71 @@ using Flurl.Http;
 
 namespace Coinbase.Commerce
 {
-   public static class HeaderNames
-   {
-      public const string WebhookSignature = "X-CC-Webhook-Signature";
-      public const string ApiKey = "X-CC-Api-Key";
-      public const string Version = "X-CC-Version";
-   }
-
+   /// <summary>
+   /// The main class to use when accessing the Coinbase Commerce API. API Docs: https://commerce.coinbase.com/docs/api/
+   /// </summary>
    public class CommerceApi
    {
-      protected internal const string ApiVersionDate = "2018-04-02";
+      /// <summary>
+      /// All API calls should be made with a X-CC-Version header which guarantees that your call is using the correct API version. Version is passed in as a date (UTC) of the implementation in YYYY-MM-DD format.
+      /// If no version is passed, the latest API version will be used and a warning will be included in the response.Under no circumstance should you always pass in the current date, as that will return the current version which might break your implementation.
+      /// </summary>
+      protected internal const string ApiVersionDate = "2018-03-22";
 
+      /// <summary>
+      /// API endpoint at coinbase
+      /// </summary>
       protected internal const string Endpoint = "https://api.commerce.coinbase.com";
-      
+     
+      /// <summary>
+      /// API Endpoint
+      /// </summary>
+      protected internal Url ChargesEndpoint;
+      /// <summary>
+      /// API Endpoint
+      /// </summary>
+      protected internal Url CheckoutEndpoint;
+      /// <summary>
+      /// API Endpoint
+      /// </summary>
+      protected internal Url EventsEndpoint;
+
+
+      /// <summary>
+      /// User's API Key
+      /// </summary>
       internal readonly string apiKey;
 
-      protected internal Url ChargesEndpoint;
-      protected internal Url CheckoutEndpoint;
-      protected internal Url EventsEndpoint;
 
       /// <summary>
       /// The main class to make calls to the coinbase commerce API.
       /// API Documentation here: https://commerce.coinbase.com/docs/api/
-      /// GitHub Project URL here: https://github.com/bchavez/Coinbase
+      /// GitHub Project URL here: https://github.com/bchavez/Coinbase.Commerce
       /// </summary>
       /// <param name="apiKey">Your secret API key. See: https://commerce.coinbase.com/docs/api/#authentication </param>
       public CommerceApi(string apiKey)
       {
          this.apiKey = apiKey;
          ConfigureClient();
-
+         
          ChargesEndpoint = Endpoint.AppendPathSegment("charges");
          CheckoutEndpoint = Endpoint.AppendPathSegment("checkouts");
          EventsEndpoint = Endpoint.AppendPathSegment("events");
       }
 
+
+      internal static readonly string UserAgent =
+         $"{AssemblyVersionInformation.AssemblyProduct}/{AssemblyVersionInformation.AssemblyVersion} ({AssemblyVersionInformation.AssemblyTitle}; {AssemblyVersionInformation.AssemblyDescription})";
+         
+      
       private void ConfigureClient()
       {
          FlurlHttp.ConfigureClient(Endpoint, client =>
             {
-               
                client
                   .WithHeader(HeaderNames.ApiKey, this.apiKey)
-                  .WithHeader(HeaderNames.Version, ApiVersionDate);
+                  .WithHeader(HeaderNames.Version, ApiVersionDate)
+                  .WithHeader("User-Agent", UserAgent);
             });
       }
 
@@ -221,31 +241,5 @@ namespace Coinbase.Commerce
             .AppendPathSegment(eventId)
             .GetJsonAsync<Response<Event>>(cancellationToken);
       }
-
    }
-
-   public static class Webhook
-   {
-      public static bool IsValid(string jsonBody, string webhookSignatureHeaderValue, string webhookSharedSecret)
-      {
-         var computed = GetHMACInHex(webhookSharedSecret, jsonBody);
-         return computed.Equals(webhookSignatureHeaderValue);
-      }
-
-      private static string GetHMACInHex(string key, string data)
-      {
-         var hmacKey = Encoding.UTF8.GetBytes(key);
-
-         var dataBytes = Encoding.UTF8.GetBytes(data);
-
-         using( var hmac = new HMACSHA256(hmacKey) )
-         {
-            var hash = hmac.ComputeHash(dataBytes);
-            return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
-         }
-      }
-   }
-
-
-
 }

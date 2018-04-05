@@ -5,6 +5,11 @@ namespace Coinbase.Commerce.Models
 {
    public partial class CreateCharge : Json
    {
+      public CreateCharge()
+      {
+         this.Metadata = new JObject();
+      }
+
       /// <summary>
       /// Charge name
       /// </summary>

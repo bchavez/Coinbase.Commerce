@@ -37,7 +37,7 @@ Full History Here: https://github.com/bchavez/Coinbase.Commerce/blob/master/HIST
     <DefineConstants>$(DefineConstants);STANDARD;STANDARD13</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Flurl.Http" Version="2.2.1" />
+    <PackageReference Include="Flurl.Http" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="Roslynator.Analyzers" Version="1.7.0" PrivateAssets="All" />
   </ItemGroup>

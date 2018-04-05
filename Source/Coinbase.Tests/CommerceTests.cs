@@ -38,7 +38,8 @@ namespace Coinbase.Tests
       {
          server.ShouldHaveMadeACall()
             .WithHeader(HeaderNames.Version, CommerceApi.ApiVersionDate)
-            .WithHeader(HeaderNames.ApiKey, apiKey);
+            .WithHeader(HeaderNames.ApiKey, apiKey)
+            .WithHeader("User-Agent");
       }
 
       void SetupServerPagedResponse(string pageJson, string dataJson)
@@ -333,6 +334,8 @@ namespace Coinbase.Tests
          server.ShouldHaveCalled($"https://api.commerce.coinbase.com/events/{Examples.EventModel.Id}")
             .WithVerb(HttpMethod.Get);
       }
+
+
    }
 
 }

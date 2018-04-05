@@ -13,7 +13,7 @@ namespace Coinbase.Commerce.Models
    public partial class Webhook : Json
    {
       /// <summary>
-      /// Delivery attempt number
+      /// The Webhook UUID
       /// </summary>
       [JsonProperty("id")]
       public long Id { get; set; }
@@ -23,6 +23,12 @@ namespace Coinbase.Commerce.Models
       /// </summary>
       [JsonProperty("scheduled_for")]
       public System.DateTimeOffset ScheduledFor { get; set; }
+
+      /// <summary>
+      /// Delivery attempt number
+      /// </summary>
+      [JsonProperty("attempt_number")]
+      public long AttemptNumber { get; set; }
 
       /// <summary>
       /// Corresponding event object
