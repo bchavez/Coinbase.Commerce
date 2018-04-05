@@ -25,7 +25,7 @@ Install-Package Coinbase.Commerce
 Usage
 -----
 ### Getting Started
-Before you do anything, you'll need to create **Coinbase Commerce** account. You can sign up [here](https://commerce.coinbase.com/).
+You'll need to create **Coinbase Commerce** account. You can sign up [here](https://commerce.coinbase.com/)!
 
 ### Receiving A Simple Crypto Payment
 Suppose you want to charge a customer **1.00 USD** for a candy bar and you'd like to receive payment in concurrency like **Bitcoin**, **Ethereum** or **Litecoin**. The following **C#** creates a checkout page hosted at **Coinbase Commerce**:
@@ -36,6 +36,8 @@ var commerceApi = new CommerceApi(apiKey);
 // Create a unique identifier to associate
 // the customer in your system with the
 // crypto payment they are about to make.
+// Normally, this is a unique ID for your
+// customer inside your database.
 var customerId = Guid.NewGuid();
 
 var charge = new CreateCharge
@@ -44,8 +46,8 @@ var charge = new CreateCharge
       Description = "Sweet Tasting Chocolate",
       PricingType = PricingType.FixedPrice,
       LocalPrice = new Money {Amount = 1.00m, Currency = "USD"},
-      Metadata =
-         {
+      Metadata = // Here we associate the customer ID in our DB with the charge.
+         {       // You can put any custom info here but keep it minimal.
             {"customerId", customerId }
          },
    };
@@ -55,7 +57,7 @@ var response = await commerceApi.CreateChargeAsync(charge);
 // Check for any errors
 if( response.HasError() )
 {
-   // The server says something is wrong. Log the error 
+   // Coinbase says something is wrong. Log the error 
    // and report back to the user an error has occurred.
    Console.WriteLine(response.Error.Message);
    Server.Render("Error creating checkout page.", 500);
@@ -72,9 +74,9 @@ When the customer is redirected to the `HostedUrl` checkout page on **Coinbase**
 It's important to keep in mind that the customer has **15 minutes** to complete the payment; otherwise the payment will fail.
 
 ### Look Ma! No Redirects!
-It totally possible to perform a checkout without any redirects. *"Whaaaat?!"* You just need to roll your own custom **UI**.
+It's totally possible to perform a checkout without any redirects. *"Whaaaat?!"* I hear you say... That's right, you just need to roll your own custom **UI**.
 
-In the previous example, if the charge creation was successful, you will get back a `Charge` object in `response.Data` that looks similar to the object below:
+In the previous example, if the charge creation was successful, you'll get back a `Charge` object in `response.Data` that looks like the object shown below:
 
 ```json
 {
@@ -112,16 +114,16 @@ In the previous example, if the charge creation was successful, you will get bac
   "warnings": null
 }
 ```
-Wonderful! Notice the `data.addresses` dictionary of `bitcoin`, `ethereum` and `litecoin` addresses above. You can use these addresses to generate **QR codes** in your custom **UI**. The same timelimit and rules apply, the customer has **15 minutes** to complete the payment. 
+Wonderful! Notice the `data.addresses` dictionary of `bitcoin`, `ethereum` and `litecoin` addresses above. So, instead of sending a redirect like the last example, you can use these crypto addresses to generate **QR codes** in your custom **UI**. The same timelimit and rules apply, the customer has **15 minutes** to complete the payment. 
 
 ### Webhooks: 'Don't call us, we'll call you...'
-If you want to receive notifications on your server when a payment is *created*, *confirmed* (aka completed), or *failed* you'll need to listen for events from **Coinbase** on your server. You can do this using [Webhooks](https://commerce.coinbase.com/docs/api/#webhooks).
+If you want to receive notifications on your server when **Charges** are *created*, *confirmed* (aka completed), or *failed* you'll need to listen for events from **Coinbase** on your server. You can do this using [Webhooks](https://commerce.coinbase.com/docs/api/#webhooks).
 
 Go to the **Settings** tab in your **Coinbase Commerce** account and create a **Webhook Subscription** as shown below:
 
 <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/webhook_sub.png" />
 
-When a `charge:created`, `charge:confirmed`, or `charge:failed` occurs, **Coinbase** will `POST` **JSON** to your `/callmebackhere` endpoint. The **HTTP** `POST` looks something like:
+When a `charge:created`, `charge:confirmed`, or `charge:failed` event occurs, **Coinbase** will `POST` **JSON** to your `/callmebackhere` endpoint. The **HTTP** `POST` looks something like:
 
 ```
 POST /callmebackhere HTTP/1.1
@@ -138,47 +140,54 @@ Content-Length: 1122
 The **two** important pieces of information you need to extract from this **HTTP** `POST` callback are:
 
   * The `X-Cc-Webhook-Signature` header value.
-  * The **HTTP** body **JSON** payload.
+  * The ***raw*** **HTTP** body **JSON** payload.
 
-The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of the **HTTP** message body computed using your **Webhook Shared Secret** as a key. You'll need to verify the authenticity of the callback with the following **C#** code:
+The value of the `X-Cc-Webhook-Signature` header is a `HMACSHA256` signature of the ***raw*** **HTTP** **JSON** computed using your **Webhook Shared Secret** as a key.
+
+The `WebhookHelper` static class included with this library does all the heavy lifting for you. All you need to do is call `Webhookhelper.IsValid()` supplying your **Webhook Shared Secret** key, the `X-Cc-Webhook-Signature` header value in the **HTTP** `POST` above, and finally the ***raw*** **JSON** body in the **HTTP** `POST` above.
+
+The following **C#** code shows how to use the `WebhookHelper` to validate callbacks from **Coinbase**:
 
 ```csharp
 if( WebhookHelper.IsValid("sharedSecretKey", webhookHeaderValue, Json.Request.Body) ){
-   // The request is legit and authentic from Coinbase.
+   // The request is legit and an authentic message from Coinbase.
    // It's safe to deserialize the JSON body. 
    var webhook = JsonConvert.DeserializeObject<Webhook>(Json.Request.Body);
 
    var chargeInfo = webhook.Event.DataAs<Charge>();
+
+   // Remember that customer ID we created back in the first example?
+   // Here's were we can extract that information from the callback.
    var customerId = chargeInfo.Metadata["customerId"].ToObject<string>();
 
    if (webhook.Event.IsChargeFailed)
    {
       // The payment failed. Log something.
+      Database.MarkPaymentFailed(customerId);
    }
    else if (webhook.Event.IsChargeCreated)
    {
       // The charge was created just now.
       // Do something with the newly created
       // event.
-
-      Database.PaymentPending(customerId)
+      Database.MarkPaymentPending(customerId)
    } 
    else if( webhook.Event.IsChargeConfirmed )
    {
       // The payment was confirmed.
-      // Fulfill the order
-
+      // Fulfill the order!
       Database.ShipCandyBar(customerId)
    }
 
    return Response.Ok();
 }
 else {
-   // Some hackery going on. Someone is trying to spoof payment events!
+   // Some hackery going on. The Webhook message validation failed.
+   // Someone is trying to spoof payment events!
    // Log the requesting IP address and HTTP body. 
 }
 ```
-And you're done! **Happy crypto shopping!** :tada: 
+Easy peasy! **Happy crypto shopping!** :tada: 
 
 
 Building
