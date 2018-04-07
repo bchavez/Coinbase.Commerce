@@ -3,12 +3,23 @@ using Newtonsoft.Json;
 
 namespace Coinbase.Commerce.Models
 {
+   /// <summary>
+   /// When updating a checkout, you do not need to copy the entire
+   /// object graph from an existing checkout object. Only fill this
+   /// object with the checkout data that you wish to change.
+   /// This update object works like a PATCH update.
+   /// </summary>
    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
    public partial class UpdateCheckout : Json
    {
+      /// <summary>
+      /// When updating a checkout, you do not need to copy the entire
+      /// object graph from an existing checkout object. Only fill this
+      /// object with the checkout data that you wish to change.
+      /// This update object works like a PATCH update.
+      /// </summary>
       public UpdateCheckout()
       {
-         this.RequestedInfo = new HashSet<string>();
       }
 
       /// <summary>
@@ -32,20 +43,33 @@ namespace Coinbase.Commerce.Models
       [JsonProperty("local_price")]
       public Money LocalPrice { get; set; }
 
+      private HashSet<string> requestedInfo;
+
       /// <summary>
       /// Information to collect from the customer
       /// </summary>
       [JsonProperty("requested_info")]
-      public HashSet<string> RequestedInfo { get; set; }
-
-      public bool ShouldSerializeRequestedInfo()
+      public HashSet<string> RequestedInfo
       {
-         return this.RequestedInfo.Count > 0;
+         get => this.requestedInfo ?? (this.requestedInfo = new HashSet<string>());
+         set => this.requestedInfo = value;
+      }
+
+      /// <summary>
+      /// Called by <seealso cref="Newtonsoft.Json"/> to determine if the
+      /// <seealso cref="RequestedInfo"/> property should be serialized.
+      /// </summary>
+      public virtual bool ShouldSerializeRequestedInfo()
+      {
+         return !(requestedInfo is null);
       }
    }
 
    public partial class UpdateCheckout
    {
+      /// <summary>
+      /// Helper property. Adds "email" to the RequestedInfo property.
+      /// </summary>
       [JsonIgnore]
       public bool RequestEmail
       {
@@ -57,6 +81,9 @@ namespace Coinbase.Commerce.Models
          }
       }
 
+      /// <summary>
+      /// Helper property. Adds "name" to the RequestedInfo property.
+      /// </summary>
       [JsonIgnore]
       public bool RequestName
       {

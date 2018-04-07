@@ -1,37 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Coinbase.Commerce;
 using Coinbase.Commerce.Models;
 using FluentAssertions;
 using Flurl.Http;
-using Flurl.Http.Configuration;
 using NUnit.Framework;
 using Z.ExtensionMethods;
 
 namespace Coinbase.Tests
 {
-   public class ProxyFactory : DefaultHttpClientFactory
-   {
-      private readonly WebProxy proxy;
-
-      public ProxyFactory(WebProxy proxy)
-      {
-         this.proxy = proxy;
-      }
-
-      public override HttpMessageHandler CreateMessageHandler()
-      {
-         return new HttpClientHandler
-            {
-               Proxy = this.proxy,
-               UseProxy = true
-            };
-      }
-   }
-
    [TestFixture]
    [Explicit]
    public class IntegrationTests
@@ -105,6 +84,18 @@ namespace Coinbase.Tests
       {
          WebhookHelper.IsValid(webhookSecret, Examples.WebhookHeaderSignature, Examples.Webhook)
             .Should().Be(true);
+      }
+
+      [Test]
+      public async Task can_update_checkout_with_empty_requestinfo()
+      {
+         var update = new UpdateCheckout();
+
+         update.RequestedInfo.Clear();
+
+         var checkout = await commerceApi.UpdateCheckoutAsync("6c7b12af-861b-48a5-b462-68f2a90f2ddb", update);
+
+         checkout.Dump();
       }
    }
 }

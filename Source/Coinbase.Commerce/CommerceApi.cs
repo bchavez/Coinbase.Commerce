@@ -43,7 +43,7 @@ namespace Coinbase.Commerce
       /// <summary>
       /// User's API Key
       /// </summary>
-      internal readonly string apiKey;
+      protected internal readonly string apiKey;
 
 
       /// <summary>
@@ -67,7 +67,7 @@ namespace Coinbase.Commerce
          $"{AssemblyVersionInformation.AssemblyProduct}/{AssemblyVersionInformation.AssemblyVersion} ({AssemblyVersionInformation.AssemblyTitle}; {AssemblyVersionInformation.AssemblyDescription})";
          
       
-      private void ConfigureClient()
+      protected internal void ConfigureClient()
       {
          FlurlHttp.ConfigureClient(Endpoint, client =>
             {
