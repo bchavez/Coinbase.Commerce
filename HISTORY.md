@@ -1,6 +1,7 @@
-# v1.0.2
+# v1.0.3
 * Model update to `UpdateCheckout.RequestedInfo` to clear "email" and "name" flags.
-* Added more XMLDoc comments. 
+* Added more XMLDoc comments.
+* Added missing `CreateCharge.RedirectUrl`. 
 
 # v1.0.1
 * Added `.HasError()` and `.HasWarnings()` helper methods on JSON response objects.

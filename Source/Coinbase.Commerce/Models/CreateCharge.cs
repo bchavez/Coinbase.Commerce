@@ -45,5 +45,11 @@ namespace Coinbase.Commerce.Models
       /// </summary>
       [JsonProperty("metadata")]
       public JObject Metadata { get; set; }
+
+      /// <summary>
+      /// The URL to redirect the user when payment completes
+      /// </summary>
+      [JsonProperty("redirect_url")]
+      public string RedirectUrl { get; set; }
    }
 }
