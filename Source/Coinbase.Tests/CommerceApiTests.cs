@@ -38,7 +38,7 @@ namespace Coinbase.Tests
          server.ShouldHaveMadeACall()
             .WithHeader(HeaderNames.Version, CommerceApi.ApiVersionDate)
             .WithHeader(HeaderNames.ApiKey, apiKey)
-            .WithHeader("User-Agent");
+            .WithHeader("User-Agent", CommerceApi.UserAgent);
       }
 
       void SetupServerPagedResponse(string pageJson, string dataJson)
