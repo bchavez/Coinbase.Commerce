@@ -18,7 +18,7 @@ Project Description
 ### Download & Install
 **Nuget Package [Coinbase.Commerce](https://www.nuget.org/packages/Coinbase.Commerce/)**
 
-```
+```powershell
 Install-Package Coinbase.Commerce
 ```
 
