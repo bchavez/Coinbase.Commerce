@@ -187,7 +187,7 @@ else {
    // Log the requesting IP address and HTTP body. 
 }
 ```
-Easy peasy! **Happy crypto shopping!** :tada: 
+Sample callback processing code for ASP.NET can be [**found here**](https://github.com/bchavez/Coinbase.Commerce/issues/1#issuecomment-382912551). Easy peasy! **Happy crypto shopping!** :tada: 
 
 
 Building
