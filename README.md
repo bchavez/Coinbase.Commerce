@@ -28,7 +28,7 @@ Usage
 You'll need to create **Coinbase Commerce** account. You can sign up [here](https://commerce.coinbase.com/)!
 
 ### Receiving A Simple Crypto Payment
-Suppose you want to charge a customer **1.00 USD** for a candy bar and you'd like to receive payment in concurrency like **Bitcoin**, **Ethereum** or **Litecoin**. The following **C#** creates a checkout page hosted at **Coinbase Commerce**:
+Suppose you want to charge a customer **1.00 USD** for a candy bar and you'd like to receive payment in cryptocurrency like **Bitcoin**, **Ethereum** or **Litecoin**. The following **C#** creates a checkout page hosted at **Coinbase Commerce**:
 
 ```csharp
 var commerceApi = new CommerceApi(apiKey);
