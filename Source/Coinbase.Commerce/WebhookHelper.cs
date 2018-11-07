@@ -14,6 +14,7 @@ namespace Coinbase.Commerce
    /// </summary>
    public static class WebhookHelper
    {
+      private static UTF8Encoding safeUtf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
       /// <summary>
       /// Checks if the Webhook callback is an authentic request from Coinbase.
       /// Coinbase Commerce signs every webhook event it sends to your endpoints.
@@ -35,9 +36,9 @@ namespace Coinbase.Commerce
 
       private static string GetHmacInHex(string key, string data)
       {
-         var hmacKey = Encoding.UTF8.GetBytes(key);
+         var hmacKey = safeUtf8.GetBytes(key);
 
-         var dataBytes = Encoding.UTF8.GetBytes(data);
+         var dataBytes = safeUtf8.GetBytes(data);
 
          using( var hmac = new HMACSHA256(hmacKey) )
          {
