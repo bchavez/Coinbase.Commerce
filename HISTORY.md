@@ -1,3 +1,6 @@
+# v1.0.4
+* Ensure multiple calls to same endpoint don't cause HTTP 404. 
+
 # v1.0.3
 * Model update to `UpdateCheckout.RequestedInfo` to clear "email" and "name" flags.
 * Added more XMLDoc comments.

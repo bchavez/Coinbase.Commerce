@@ -29,15 +29,15 @@ namespace Coinbase.Commerce
       /// <summary>
       /// API Endpoint
       /// </summary>
-      protected internal Url ChargesEndpoint;
+      protected internal Url ChargesEndpoint => Endpoint.AppendPathSegment("charges");
       /// <summary>
       /// API Endpoint
       /// </summary>
-      protected internal Url CheckoutEndpoint;
+      protected internal Url CheckoutEndpoint => Endpoint.AppendPathSegment("checkouts");
       /// <summary>
       /// API Endpoint
       /// </summary>
-      protected internal Url EventsEndpoint;
+      protected internal Url EventsEndpoint => Endpoint.AppendPathSegment("events");
 
 
       /// <summary>
@@ -56,10 +56,6 @@ namespace Coinbase.Commerce
       {
          this.apiKey = apiKey;
          ConfigureClient();
-         
-         ChargesEndpoint = Endpoint.AppendPathSegment("charges");
-         CheckoutEndpoint = Endpoint.AppendPathSegment("checkouts");
-         EventsEndpoint = Endpoint.AppendPathSegment("events");
       }
 
 
