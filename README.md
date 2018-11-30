@@ -6,6 +6,12 @@ Coinbase.Commerce for .NET and C#
 Project Description
 -------------------
 :moneybag: A **C#** API library and HTTP client implementation for the [**Coinbase Commerce** API](https://commerce.coinbase.com/docs/).
+
+:loudspeaker: ***HEY!*** Be sure to checkout these other Coinbase API integrations:
+
+* [**Coinbase**](https://github.com/bchavez/Coinbase) - For Coinbase wallet account integration.
+* [**Coinbase.Pro**](https://github.com/bchavez/Coinbase.Pro) - For [retail trading](https://pro.coinbase.com) on [Coinbase Pro](https://pro.coinbase.com). Integration with orders, market data, and real-time WebSocket feeds.
+
 #### Supported Platforms
 * **.NET Standard 1.3** or later
 * **.NET Framework 4.5** or later
