@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A .NET implementation of the Coinbase Commerce API for cryptocurrency payments. Coinbase Commerce is the easiest and safest way for a business to start accepting digital currency payments. Works with Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), and Bitcoin Cash (BCH)!</Description>
     <PackageReleaseNotes>
@@ -19,10 +19,10 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/bchavez/Coinbase.Commerce</RepositoryUrl>
-     <!--Source Link Settings-->
-     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-     <EmbedUntrackedSources>false</EmbedUntrackedSources>
-     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <!--Source Link Settings-->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);STANDARD;STANDARD20</DefineConstants>

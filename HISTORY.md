@@ -1,3 +1,6 @@
+# v1.0.5
+* Added SourceLink compatibility.
+
 # v1.0.4
 * Ensure multiple calls to same endpoint don't cause HTTP 404. 
 
