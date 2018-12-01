@@ -34,29 +34,6 @@ let TestProject = TestProject("Coinbase.Tests", Folders)
 
 
 
-Target "msb" (fun _ ->
-    
-    let tag = "msb_build";
-
-    let buildProps = [ 
-                        "AssemblyOriginatorKeyFile", Projects.SnkFile
-//                        "SignAssembly", BuildContext.IsTaggedBuild.ToString()
-                     ]
-
-    !! CoinbaseProject.ProjectFile
-    |> MSBuildReleaseExt null buildProps "Build"
-    |> Log "AppBuild-Output: "
-    
-    //copy outputs.
-    traceFAKE "Copying MS Build outputs..."
-    CopyDir (CoinbaseProject.OutputDirectory @@ tag) CoinbaseProject.MsBuildFolderRelease allFiles
-
-    !! TestProject.ProjectFile
-    |> MSBuild "" "Build" (("Configuration", "Debug")::buildProps)
-    |> Log "AppBuild-Output: "
-)
-
-
 
 Target "dnx" (fun _ ->
     trace "DNX Build Task"
@@ -67,23 +44,9 @@ Target "dnx" (fun _ ->
 )
 
 Target "restore" (fun _ -> 
-     trace "MS NuGet Project Restore"
-     let lookIn = Folders.Lib @@ "build"
-     let toolPath = findToolInSubPath "NuGet.exe" lookIn
-
-     tracefn "NuGet Tool Path: %s" toolPath
-
-     Projects.SolutionFile
-     |> RestoreMSSolutionPackages (fun p ->
-            { 
-              p with 
-                OutputPath = (Folders.Source @@ "packages" )
-                ToolPath = toolPath
-            }
-        )
-
      trace ".NET Core Restore"
      DotnetRestore CoinbaseProject
+     DotnetRestore TestProject
  )
 
 open Ionic.Zip
@@ -156,16 +119,6 @@ Target "Clean" (fun _ ->
 
 open Fake.Testing
 
-let RunTests() =
-    CreateDir Folders.Test
-    let nunit = findToolInSubPath "nunit3-console.exe" Folders.Lib
-
-    !! TestProject.TestAssembly
-    |> NUnit3 (fun p -> { p with 
-                            ProcessModel = NUnit3ProcessModel.SingleProcessModel
-                            ToolPath = nunit
-                            ResultSpecs = [Files.TestResultFile]
-                            ErrorLevel = TestRunnerErrorLevel.Error })
 
 
 open Fake.AppVeyor
@@ -176,13 +129,29 @@ Target "ci" (fun _ ->
 
 Target "test" (fun _ ->
     trace "TEST"
-    RunTests()
+    CreateDir Folders.Test
+
+    DotNetCli.Test( fun p ->
+       { p with
+          WorkingDir = TestProject.Folder
+          AdditionalArgs = [
+                             "--test-adapter-path:."
+                             sprintf "--logger:\"nunit;LogFilePath=%s\"" Files.TestResultFile
+                           ]
+       })
 )
 
 Target "citest" (fun _ ->
     trace "CI TEST"
-    RunTests()
-    UploadTestResultsXml TestResultsType.NUnit3 Folders.Test
+    
+    DotNetCli.Test( fun p ->
+       { p with
+          WorkingDir = TestProject.Folder
+          AdditionalArgs = [
+                             "--test-adapter-path:."
+                             "--logger:Appveyor"
+                           ]
+       })
 )
 
 
@@ -208,11 +177,6 @@ Target "setup-snk"(fun _ ->
 
 "BuildInfo"
     //=?> ("setup-snk", BuildContext.IsTaggedBuild)
-    ==> "msb"
-    ==> "zip"
-
-"BuildInfo"
-    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
     ==> "zip"
 
 "dnx"
@@ -230,10 +194,10 @@ Target "setup-snk"(fun _ ->
 
 
 //test task depends on msbuild
-"msb"
+"dnx"
     ==> "test"
 
 
 
 // start build
-RunTargetOrDefault "msb"
+RunTargetOrDefault "dnx"

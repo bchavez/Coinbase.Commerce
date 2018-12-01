@@ -351,10 +351,7 @@ module Helpers =
                Configuration = "Release"
                WorkingDir = np.Folder
                OutputPath = output
-               AdditionalArgs = [
-                                  "--include-symbols"
-                                  "--include-source"
-                                 ]
+               AdditionalArgs = []
            })
 
     let DotnetBuild (np: NugetProject) (tag: string) = 
@@ -369,7 +366,7 @@ module Helpers =
                   Framework = framework
              })
 
-    let DotnetRestore (np : NugetProject) =
+    let DotnetRestore (np : Project) =
            DotNetCli.Restore( fun p ->
             { p with 
                WorkingDir = np.Folder
