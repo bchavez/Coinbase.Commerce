@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Coinbase.Commerce.Models;
 using Flurl;
 using Flurl.Http;
+using Flurl.Http.Configuration;
 
 [assembly:InternalsVisibleTo("Coinbase.Tests")]
 
@@ -73,6 +76,43 @@ namespace Coinbase.Commerce
                   .WithHeader("User-Agent", UserAgent);
             });
       }
+
+#if !STANDARD13
+      /// <summary>
+      /// Enable HTTP debugging via Fiddler. Ensure Tools > Fiddler Options... > Connections is enabled and has a port configured.
+      /// Then, call this method with the following URL format: http://localhost.:PORT where PORT is the port number Fiddler proxy
+      /// is listening on. (Be sure to include the period after the localhost).
+      /// </summary>
+      /// <param name="proxyUrl">The full proxy URL Fiddler proxy is listening on. IE: http://localhost.:8888 - The period after localhost is important to include.</param>
+      public void EnableFiddlerDebugProxy(string proxyUrl)
+      {
+         var webProxy = new WebProxy(proxyUrl, BypassOnLocal: false);
+
+         FlurlHttp.ConfigureClient(Endpoint, settings =>
+            {
+               settings.Settings.HttpClientFactory = new DebugProxyFactory(webProxy);
+            });
+      }
+
+      private class DebugProxyFactory : DefaultHttpClientFactory
+      {
+         private readonly WebProxy proxy;
+
+         public DebugProxyFactory(WebProxy proxy)
+         {
+            this.proxy = proxy;
+         }
+
+         public override HttpMessageHandler CreateMessageHandler()
+         {
+            return new HttpClientHandler
+               {
+                  Proxy = this.proxy,
+                  UseProxy = true
+               };
+         }
+      }
+#endif
 
       /// <summary>
       /// List all the charges. All GET endpoints which return an object list

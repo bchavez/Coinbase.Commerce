@@ -21,18 +21,12 @@ namespace Coinbase.Tests
       public IntegrationTests()
       {
          Directory.SetCurrentDirectory(Path.GetDirectoryName(typeof(IntegrationTests).Assembly.Location));
-         var lines  = File.ReadAllLines("../../.secrets.txt");
+         var lines  = File.ReadAllLines("../../../.secrets.txt");
          var apiKey = lines[0].GetAfter(":");
          webhookSecret = lines[1].GetAfter(":");
 
-         var webProxy = new WebProxy("http://localhost.:8888", BypassOnLocal: false);
-
-         FlurlHttp.Configure(settings =>
-            {
-               settings.HttpClientFactory = new ProxyFactory(webProxy);
-            });
-
          commerceApi = new CommerceApi(apiKey);
+         commerceApi.EnableFiddlerDebugProxy("http://localhost.:8888");
       }
 
       [Test]

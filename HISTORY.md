@@ -1,5 +1,8 @@
 # v1.0.5
 * Added SourceLink compatibility.
+* Added `CommerceApi.EnableFiddlerDebugProxy()` method to help debug HTTP calls. The method appears for applications using **.NET Standard 2.0** or **Full .NET Framework**. The `EnableFiddlerDebugProxy` will not appear for **.NET Standard 1.3** consumers.
+* NuGet dependency `Flurl.Http` updated.
+* NuGet dependency `Newtonsoft.Json` updated.
 
 # v1.0.4
 * Ensure multiple calls to same endpoint don't cause HTTP 404. 
