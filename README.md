@@ -129,6 +129,8 @@ Go to the **Settings** tab in your **Coinbase Commerce** account and create a **
 
 <img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/webhook_sub.png" />
 
+:bulb: **Protip:** Consider using [smee.io](https://smee.io/) or [ngrok](https://ngrok.com/) to help you debug webhook callbacks while in development.
+
 When a `charge:created`, `charge:confirmed`, or `charge:failed` event occurs, **Coinbase** will `POST` **JSON** to your `/callmebackhere` endpoint. The **HTTP** `POST` looks something like:
 
 ```
