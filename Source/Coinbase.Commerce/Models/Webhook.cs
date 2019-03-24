@@ -107,5 +107,23 @@ namespace Coinbase.Commerce.Models
       /// </summary>
       [JsonIgnore]
       public bool IsChargeFailed => "charge:failed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+
+      /// <summary>
+      /// The charge has been delayed
+      /// </summary>
+      [JsonIgnore]
+      public bool IsChargeDelayed => "charge:delayed".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+
+      /// <summary>
+      /// Charge is pending
+      /// </summary>
+      [JsonIgnore]
+      public bool IsChargePending => "charge:pending".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
+
+      /// <summary>
+      /// Charge is resolved
+      /// </summary>
+      [JsonIgnore]
+      public bool IsChargeResolved => "charge:resolved".Equals(this.Type, StringComparison.OrdinalIgnoreCase);
    }
 }
