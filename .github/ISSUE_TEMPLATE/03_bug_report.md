@@ -17,13 +17,17 @@ about: "If something isn't working ... 🔧"
 
 ### What is the actual behavior?
 
+### Please provide a unit test that demonstrates the bug.
+
+### Other notes on how to reproduce the issue?
+
 ### Any possible solutions?
 
-### How do you reproduce the issue?
-
-### Do you have a unit test that can demonstrate the bug?
-
 ### Can you identify the location in the source code where the problem exists?
+
+### What is the HTTP request JSON and response JSON?
+
+_(Use Fiddler to help capture this information)_
 
 ### If the bug is confirmed, would you be willing to submit a PR?
 
