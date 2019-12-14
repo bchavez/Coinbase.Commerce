@@ -162,6 +162,16 @@ namespace Coinbase.Tests
          server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/cancel")
             .WithVerb(HttpMethod.Post);
       }
+      
+      [Test]
+      public async Task can_resolve_a_charge()
+      {
+         server.RespondWith("");
+         await com.ResolveChargeAsync("66BEOV2A");
+
+         server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/resolve")
+            .WithVerb(HttpMethod.Post);
+      }
 
       [Test]
       public async Task can_list_checkouts()
