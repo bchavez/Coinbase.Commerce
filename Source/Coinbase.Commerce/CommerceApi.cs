@@ -168,6 +168,20 @@ namespace Coinbase.Commerce
             .ReceiveJson<Response<Charge>>();
       }
 
+      /// <summary>
+      /// Cancels a charge that has been previously created. Supply the unique charge code that was returned when the charge was created.
+      /// Note: Only new charges can be successfully canceled. Once payment is detected, charge can no longer be canceled.
+      /// </summary>
+      /// <param name="chargeCode">The Charge.Code</param>
+      /// <returns></returns>
+      public virtual Task<Response<Charge>> CancelChargeAsync(string chargeCode, CancellationToken cancellationToken = default)
+      {
+         return ChargesEndpoint
+            .AppendPathSegment(chargeCode)
+            .AppendPathSegment("cancel")
+            .PostAsync(null, cancellationToken)
+            .ReceiveJson<Response<Charge>>();
+      }
 
       /// <summary>
       /// List all the checkouts. All GET endpoints which return an object list
