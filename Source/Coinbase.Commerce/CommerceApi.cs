@@ -184,7 +184,7 @@ namespace Coinbase.Commerce
             .PostAsync(null, cancellationToken)
             .ReceiveJson<Response<Charge>>();
       }
-      
+
       /// <summary>
       /// Resolve a charge that has been previously marked as unresolved.
       /// Supply the unique charge code that was returned when the charge was created.

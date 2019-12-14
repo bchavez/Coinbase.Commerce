@@ -15,7 +15,7 @@ namespace Coinbase.Commerce.Models
       public System.DateTimeOffset Time { get; set; }
 
       /// <summary>
-      /// One of the following statuses: NEW, PENDING, COMPLETED, EXPIRED, UNRESOLVED, RESOLVED
+      /// One of the following statuses: NEW, PENDING, COMPLETED, EXPIRED, UNRESOLVED, RESOLVED, CANCELED
       /// </summary>
       [JsonProperty("status")]
       public string Status { get; set; }

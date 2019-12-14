@@ -156,21 +156,39 @@ namespace Coinbase.Tests
       [Test]
       public async Task can_cancel_a_charge()
       {
-         server.RespondWith("");
-         await com.CancelChargeAsync("66BEOV2A");
+         SetupServerSingleResponse(Examples.CancelCharge);
+
+         var charge = await com.CancelChargeAsync("66BEOV2A");
+
+         var truth = new Response<Charge>
+            {
+               Data = Examples.CancelChargeModel
+            };
+
+         charge.Should().BeEquivalentTo(truth);
 
          server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/cancel")
-            .WithVerb(HttpMethod.Post);
+            .WithVerb(HttpMethod.Post)
+            .WithRequestBody("");
       }
       
       [Test]
       public async Task can_resolve_a_charge()
       {
-         server.RespondWith("");
-         await com.ResolveChargeAsync("66BEOV2A");
+         SetupServerSingleResponse(Examples.ResolveCharge);
+
+         var charge = await com.ResolveChargeAsync("66BEOV2A");
+
+         var truth = new Response<Charge>
+            {
+               Data = Examples.ResolveChargeModel
+            };
+
+         charge.Should().BeEquivalentTo(truth);
 
          server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/resolve")
-            .WithVerb(HttpMethod.Post);
+            .WithVerb(HttpMethod.Post)
+            .WithRequestBody("");
       }
 
       [Test]
