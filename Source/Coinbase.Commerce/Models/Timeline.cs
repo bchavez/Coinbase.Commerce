@@ -29,7 +29,7 @@ namespace Coinbase.Commerce.Models
 
    public partial class Timeline
    {
-      //NEW, PENDING, COMPLETED, EXPIRED, UNRESOLVED, RESOLVED
+      //NEW, PENDING, COMPLETED, EXPIRED, UNRESOLVED, RESOLVED, CANCELED
       [JsonIgnore]
       public bool IsStatusNew => "NEW".Equals(this.Status, StringComparison.OrdinalIgnoreCase);
 
@@ -47,6 +47,9 @@ namespace Coinbase.Commerce.Models
 
       [JsonIgnore]
       public bool IsStatusResolved => "RESOLVED".Equals(this.Status, StringComparison.OrdinalIgnoreCase);
+      
+      [JsonIgnore]
+      public bool IsStatusCanceled => "CANCELED".Equals(this.Status, StringComparison.OrdinalIgnoreCase);
 
 
       //UNDERPAID, OVERPAID, DELAYED, MULTIPLE, MANUAL, OTHER
