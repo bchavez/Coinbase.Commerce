@@ -20,6 +20,12 @@ namespace Coinbase.Commerce.Models
       public string Id { get; set; }
 
       /// <summary>
+      /// Resource name: "checkout"
+      /// </summary>
+      [JsonProperty("resource")]
+      public string Resource { get; set; }
+
+      /// <summary>
       /// Checkout name
       /// </summary>
       [JsonProperty("name")]

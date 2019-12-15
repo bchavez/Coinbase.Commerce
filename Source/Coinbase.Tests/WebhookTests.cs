@@ -11,8 +11,8 @@ namespace Coinbase.Tests
       [Test]
       public void can_deseralize_webhook()
       {
-         var callback = JsonConvert.DeserializeObject<Webhook>(Examples.Webhook);
-         callback.Should().BeEquivalentTo(Examples.WebhookModel);
+         var callback = JsonConvert.DeserializeObject<Webhook>(WebhookData.Webhook);
+         callback.Should().BeEquivalentTo(WebhookData.WebhookModel);
 
          var charge = callback.Event.DataAs<Charge>();
          charge.Should().NotBeNull();
@@ -22,7 +22,7 @@ namespace Coinbase.Tests
       [Ignore("only an example")]
       public void example()
       {
-         var webhook = JsonConvert.DeserializeObject<Webhook>(Examples.Webhook);
+         var webhook = JsonConvert.DeserializeObject<Webhook>(WebhookData.Webhook);
 
          var chargeInfo = webhook.Event.DataAs<Charge>();
          var customerId = chargeInfo.Metadata["customerId"].ToObject<string>();

@@ -52,7 +52,13 @@ namespace Coinbase.Commerce.Models
       public string Id { get; set; }
 
       /// <summary>
-      /// Event type: charge:created, charge:confirmed, charge:failed
+      /// Resource name: "event"
+      /// </summary>
+      [JsonProperty("resource")]
+      public string Resource { get; set; }
+
+      /// <summary>
+      /// Event type: charge:created, charge:confirmed, charge:failed, charge:delayed, charge:pending
       /// </summary>
       [JsonProperty("type")]
       public string Type { get; set; }

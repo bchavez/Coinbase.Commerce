@@ -13,6 +13,18 @@ namespace Coinbase.Commerce.Models
    public partial class Charge : Json
    {
       /// <summary>
+      /// Charge UUID
+      /// </summary>
+      [JsonProperty("id")]
+      public string Id { get; set; }
+
+      /// <summary>
+      /// Resource name: "charge"
+      /// </summary>
+      [JsonProperty("resource")]
+      public string Resource { get; set; }
+
+      /// <summary>
       /// Charge user-friendly primary key
       /// </summary>
       [JsonProperty("code")]

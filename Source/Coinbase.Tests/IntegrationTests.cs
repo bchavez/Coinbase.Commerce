@@ -76,7 +76,7 @@ namespace Coinbase.Tests
       [Test]
       public void can_verify_a_webhook()
       {
-         WebhookHelper.IsValid(webhookSecret, Examples.WebhookHeaderSignature, Examples.Webhook)
+         WebhookHelper.IsValid(webhookSecret, WebhookData.WebhookHeaderSignature, WebhookData.Webhook)
             .Should().Be(true);
       }
 
