@@ -168,6 +168,39 @@ namespace Coinbase.Commerce
             .ReceiveJson<Response<Charge>>();
       }
 
+      /// <summary>
+      /// Cancels a charge that has been previously created.
+      /// Supply the unique charge code that was returned when the charge was created.
+      /// Note: Only new charges can be successfully canceled.
+      /// Once payment is detected, charge can no longer be canceled.
+      /// </summary>
+      /// <param name="chargeCode">The Charge.Code</param>
+      /// <returns></returns>
+      public virtual Task<Response<Charge>> CancelChargeAsync(string chargeCode, CancellationToken cancellationToken = default)
+      {
+         return ChargesEndpoint
+            .AppendPathSegment(chargeCode)
+            .AppendPathSegment("cancel")
+            .PostAsync(null, cancellationToken)
+            .ReceiveJson<Response<Charge>>();
+      }
+
+      /// <summary>
+      /// Resolve a charge that has been previously marked as unresolved.
+      /// Supply the unique charge code that was returned when the charge was created.
+      /// Note: Only unresolved charges can be successfully resolved.
+      /// For more on unresolved charges, check out at <see href="https://commerce.coinbase.com/docs/api/#charge-timeline">Charge timeline</see>
+      /// </summary>
+      /// <param name="chargeCode">The Charge.Code</param>
+      /// <returns></returns>
+      public virtual Task<Response<Charge>> ResolveChargeAsync(string chargeCode, CancellationToken cancellationToken = default)
+      {
+         return ChargesEndpoint
+            .AppendPathSegment(chargeCode)
+            .AppendPathSegment("resolve")
+            .PostAsync(null, cancellationToken)
+            .ReceiveJson<Response<Charge>>();
+      }
 
       /// <summary>
       /// List all the checkouts. All GET endpoints which return an object list

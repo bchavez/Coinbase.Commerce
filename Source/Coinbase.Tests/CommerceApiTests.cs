@@ -152,6 +152,44 @@ namespace Coinbase.Tests
          server.ShouldHaveCalled("https://api.commerce.coinbase.com/charges")
             .WithVerb(HttpMethod.Post);
       }
+      
+      [Test]
+      public async Task can_cancel_a_charge()
+      {
+         SetupServerSingleResponse(Examples.CancelCharge);
+
+         var charge = await com.CancelChargeAsync("66BEOV2A");
+
+         var truth = new Response<Charge>
+            {
+               Data = Examples.CancelChargeModel
+            };
+
+         charge.Should().BeEquivalentTo(truth);
+
+         server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/cancel")
+            .WithVerb(HttpMethod.Post)
+            .WithRequestBody("");
+      }
+      
+      [Test]
+      public async Task can_resolve_a_charge()
+      {
+         SetupServerSingleResponse(Examples.ResolveCharge);
+
+         var charge = await com.ResolveChargeAsync("66BEOV2A");
+
+         var truth = new Response<Charge>
+            {
+               Data = Examples.ResolveChargeModel
+            };
+
+         charge.Should().BeEquivalentTo(truth);
+
+         server.ShouldHaveCalled($"https://api.commerce.coinbase.com/charges/66BEOV2A/resolve")
+            .WithVerb(HttpMethod.Post)
+            .WithRequestBody("");
+      }
 
       [Test]
       public async Task can_list_checkouts()
@@ -204,7 +242,6 @@ namespace Coinbase.Tests
       [Test]
       public async Task can_create_a_checkout()
       {
-
          var requestInfo = @"""email""";
          SetupServerSingleResponse(Examples.CheckoutWithRequestInfo(requestInfo));
 
