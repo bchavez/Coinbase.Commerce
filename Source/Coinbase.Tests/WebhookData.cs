@@ -11,17 +11,17 @@ namespace Coinbase.Tests
 
       public static Webhook WebhookModel =>
          new Webhook
-         {
-            AttemptNumber = 1,
-            Id = "0d0cee27-8ffb-405d-9d05-3326dd4bcb7d",
-            ScheduledFor = DateTimeOffset.Parse("2018-04-04T23:49:00Z"),
-            Event = new Event
             {
-               ApiVersion = "2018-03-22",
-               CreatedAt = DateTimeOffset.Parse("2018-04-04T23:49:00Z"),
-               Id = "f6972c57-c100-4e64-b47c-193adecfadc6",
-               Type = "charge:created",
-               Data = new JObject
+               AttemptNumber = 1,
+               Id = "0d0cee27-8ffb-405d-9d05-3326dd4bcb7d",
+               ScheduledFor = DateTimeOffset.Parse("2018-04-04T23:49:00Z"),
+               Event = new Event
+                  {
+                     ApiVersion = "2018-03-22",
+                     CreatedAt = DateTimeOffset.Parse("2018-04-04T23:49:00Z"),
+                     Id = "f6972c57-c100-4e64-b47c-193adecfadc6",
+                     Type = "charge:created",
+                     Data = new JObject
                         {
                            {"code", "8EKMDPVQ"},
                            {"name", "Candy Bar"},
@@ -98,7 +98,7 @@ namespace Coinbase.Tests
                            {"pricing_type", "fixed_price"}
                         }
 
-            }
-         };
+                  }
+            };
    }
 }
