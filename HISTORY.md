@@ -1,3 +1,7 @@
+## v1.1.0
+* PR 10: New API methods added: `CancelChargeAsync` and `ResolveChargeAsync`.
+* Model update. `Id` and `Resource` properties added on models.
+
 ## v1.0.6
 * PR 5: Added additional `Webhook` event helper properties, `Event.IsChargeDelayed`, `Event.IsChargePending`, `Event.IsChargeResolved`. 
 
