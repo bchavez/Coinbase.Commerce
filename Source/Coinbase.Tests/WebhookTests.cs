@@ -45,5 +45,11 @@ namespace Coinbase.Tests
 
          ///return Response.Ok();
       }
+
+      [Test]
+      public void can_deserialize_webhook2()
+      {
+
+      }
    }
 }

@@ -1,3 +1,6 @@
+## v1.1.1
+* Issue 12: Fixes error converting null to type 'System.Int64' in charge payments block height.
+
 ## v1.1.0
 * PR 10: New API methods added: `CancelChargeAsync` and `ResolveChargeAsync`.
 * Model update. `Id` and `Resource` properties added on models.

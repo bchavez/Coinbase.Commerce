@@ -11,7 +11,7 @@ namespace Coinbase.Commerce.Models
       /// Block height
       /// </summary>
       [JsonProperty("height")]
-      public long Height { get; set; }
+      public long? Height { get; set; }
 
       /// <summary>
       /// Block hash
