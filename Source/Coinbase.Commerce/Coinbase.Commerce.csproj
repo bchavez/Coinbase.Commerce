@@ -1,8 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A .NET implementation of the Coinbase Commerce API for cryptocurrency payments. Coinbase Commerce is the easiest and safest way for a business to start accepting digital currency payments. Works with Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), and Bitcoin Cash (BCH)!</Description>
-    <PackageReleaseNotes>
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>## v1.1.1
+* Issue 12: Fixes error converting null to type 'System.Int64' in charge payments block height.
+
+## v1.1.0
+* PR 10: New API methods added: `CancelChargeAsync` and `ResolveChargeAsync`.
+* Model update. `Id` and `Resource` properties added on models.
+
+## v1.0.6
+* PR 5: Added additional `Webhook` event helper properties, `Event.IsChargeDelayed`, `Event.IsChargePending`, `Event.IsChargeResolved`. 
+
+## v1.0.5
+* Added SourceLink compatibility.
+* Added `CommerceApi.EnableFiddlerDebugProxy()` method to help debug HTTP calls. The method appears for applications using **.NET Standard 2.0** or **Full .NET Framework**. The `EnableFiddlerDebugProxy` will not appear for **.NET Standard 1.3** consumers.
+* NuGet dependency `Flurl.Http` updated.
+* NuGet dependency `Newtonsoft.Json` updated.
+
+## v1.0.4
+* Ensure multiple calls to same endpoint don't cause HTTP 404. 
+
+
+Full History Here: https://github.com/bchavez/Coinbase.Commerce/blob/master/HISTORY.md</PackageReleaseNotes>
     <Version>0.0.0-localbuild</Version>
     <Authors>Brian Chavez</Authors>
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>

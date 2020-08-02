@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Coinbase.Tests", "Coinbase.Tests\Coinbase.Tests.csproj", "{6BE02044-CDFA-4B33-A874-8D4AA86DFB84}"
 EndProject
@@ -13,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build.cmd = build.cmd
 		Directory.Build.props = Directory.Build.props
 		..\HISTORY.md = ..\HISTORY.md
-		paket.dependencies = paket.dependencies
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
