@@ -12,9 +12,17 @@ Project Description
 * [**Coinbase**](https://github.com/bchavez/Coinbase) - For Coinbase wallet account integration.
 * [**Coinbase.Pro**](https://github.com/bchavez/Coinbase.Pro) - For [retail trading](https://pro.coinbase.com) on [Coinbase Pro](https://pro.coinbase.com). Integration with orders, market data, and real-time WebSocket feeds.
 
-#### Supported Platforms
+[1]:https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client
+[2]:https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
+#### Minimum Requirements
 * **.NET Standard 1.3** or later
 * **.NET Framework 4.5** or later
+* **TLS 1.2** or later
+
+***Note:*** If you are using **.NET Framework 4.5** you will need to ensure your application is using **TLS 1.2** or later. This can be configured via the registry ([**link 1**][1], [**link 2**][2]) or configured at ***application startup*** by setting the following value in `ServicePointManager`:
+```csharp
+ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+```
 
 #### Crypto Tip Jar
 <a href="https://commerce.coinbase.com/checkout/f16cd3cc-8a70-456b-beeb-ee0129cc4a0c"><img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/tipjar.png" /></a>
