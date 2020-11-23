@@ -26,7 +26,7 @@ ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 #### Crypto Tip Jar
 <a href="https://commerce.coinbase.com/checkout/f16cd3cc-8a70-456b-beeb-ee0129cc4a0c"><img src="https://raw.githubusercontent.com/bchavez/Coinbase.Commerce/master/Docs/tipjar.png" /></a>
-* :dog2: **Dogecoin**: `DGVC2drEMt41sEzEHSsiE3VTrgsQxGn5qe`
+* :dog2: **Dogecoin**: `DCLn3e1utFR99MG9eEHAX4XvYeR622top8`
 
 
 ### Download & Install
