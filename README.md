@@ -15,11 +15,11 @@ Project Description
 [1]:https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client
 [2]:https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
 #### Minimum Requirements
-* **.NET Standard 1.3** or later
-* **.NET Framework 4.5** or later
+* **.NET Standard 2.0** or later
+* **.NET Framework 4.6.1** or later
 * **TLS 1.2** or later
 
-***Note:*** If you are using **.NET Framework 4.5** you will need to ensure your application is using **TLS 1.2** or later. This can be configured via the registry ([**link 1**][1], [**link 2**][2]) or configured at ***application startup*** by setting the following value in `ServicePointManager`:
+***Note:*** If you are using **.NET Framework 4.6.1** you will need to ensure your application is using **TLS 1.2** or later. This can be configured via the registry ([**link 1**][1], [**link 2**][2]) or configured at ***application startup*** by setting the following value in `ServicePointManager`:
 ```csharp
 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 ```

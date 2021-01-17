@@ -77,7 +77,6 @@ namespace Coinbase.Commerce
             });
       }
 
-#if !STANDARD13
       /// <summary>
       /// Enable HTTP debugging via Fiddler. Ensure Tools > Fiddler Options... > Connections is enabled and has a port configured.
       /// Then, call this method with the following URL format: http://localhost.:PORT where PORT is the port number Fiddler proxy
@@ -112,7 +111,6 @@ namespace Coinbase.Commerce
                };
          }
       }
-#endif
 
       /// <summary>
       /// List all the charges. All GET endpoints which return an object list

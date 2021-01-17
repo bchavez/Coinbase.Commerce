@@ -1,3 +1,8 @@
+## v2.0.1
+* Update `Flurl.Http` dependency to 3.0.1.
+* Minimum .NET Framework requirement changed from 4.5 to 4.6.1.
+* Dropped support for `netstandard1.3`; `netstandard2.0` still supported.
+
 ## v1.1.1
 * Issue 12: Fixes error converting null to type 'System.Int64' in charge payments block height.
 
