@@ -1,6 +1,7 @@
 ﻿using Coinbase.Commerce;
 using Flurl.Http.Testing;
 using NUnit.Framework;
+using VerifyTests;
 
 namespace Coinbase.Tests.ApiTests
 {
@@ -13,6 +14,7 @@ namespace Coinbase.Tests.ApiTests
       [SetUp]
       public void BeforeEachTest()
       {
+         VerifierSettings.UseStrictJson();
          server = new HttpTest();
 
          api = new CommerceApi(apiKey);

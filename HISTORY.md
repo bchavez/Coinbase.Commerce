@@ -1,3 +1,8 @@
+## v3.0.1
+* Update `Newtonsoft.Json` to 13.0.1
+* Add new Invoice APIs.
+* Add `CancellationToken` parameter to `CreateCheckoutAsync`.
+
 ## v2.0.1
 * Update `Flurl.Http` dependency to 3.0.1.
 * Minimum .NET Framework requirement changed from 4.5 to 4.6.1.

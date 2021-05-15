@@ -40,8 +40,11 @@ namespace Coinbase.Commerce
       /// <summary>
       /// API Endpoint
       /// </summary>
+      protected internal Url InvoicesEndpoint => Endpoint.AppendPathSegment("invoices");
+      /// <summary>
+      /// API Endpoint
+      /// </summary>
       protected internal Url EventsEndpoint => Endpoint.AppendPathSegment("events");
-
 
       /// <summary>
       /// User's API Key
@@ -240,10 +243,10 @@ namespace Coinbase.Commerce
       /// Create a new checkout.
       /// </summary>
       /// <param name="checkout">The checkout to create</param>
-      public virtual Task<Response<Checkout>> CreateCheckoutAsync(CreateCheckout checkout)
+      public virtual Task<Response<Checkout>> CreateCheckoutAsync(CreateCheckout checkout, CancellationToken cancellationToken = default)
       {
          return CheckoutEndpoint
-            .PostJsonAsync(checkout)
+            .PostJsonAsync(checkout, cancellationToken)
             .ReceiveJson<Response<Checkout>>();
       }
 
@@ -270,6 +273,89 @@ namespace Coinbase.Commerce
             .AppendPathSegment(checkoutId)
             .DeleteAsync(cancellationToken);
       }
+
+
+
+
+
+      /// <summary>
+      /// Lists all the invoices
+      /// </summary>
+      /// <param name="listOrder">Order of the resources in the response. desc (default), asc</param>
+      /// <param name="limit">umber of results per call. Accepted values: 0 - 100. Default 25</param>
+      /// <param name="startingAfter">A cursor for use in pagination. starting_after is a resource ID that defines your place in the list.</param>
+      /// <param name="endingBefore">A cursor for use in pagination. ending_before is a resource ID that defines your place in the list.</param>
+      public virtual Task<PagedResponse<Invoice>> ListInvoicesAsync(ListOrder? listOrder = null, int? limit = null, string startingAfter = null, string endingBefore = null, CancellationToken cancellationToken = default)
+      {
+         return InvoicesEndpoint
+            .SetQueryParam("order", listOrder?.ToString().ToLower())
+            .SetQueryParam("limit", limit)
+            .SetQueryParam("starting_after", startingAfter)
+            .SetQueryParam("ending_before", endingBefore)
+            .GetJsonAsync<PagedResponse<Invoice>>(cancellationToken);
+      }
+
+      /// <summary>
+      /// Retrieves the details of an invoice that has been previously created. Supply the unique
+      /// short code that was returned when the invoice was created. This information is
+      /// also returned when an invoice is first created.
+      /// </summary>
+      /// <param name="codeOrId">Invoice code or ID</param>
+      public virtual Task<Response<Invoice>> GetInvoiceAsync(string codeOrId, CancellationToken cancellationToken = default)
+      {
+         return InvoicesEndpoint
+            .AppendPathSegment(codeOrId)
+            .GetJsonAsync<Response<Invoice>>(cancellationToken);
+      }
+
+      /// <summary>
+      /// To send an invoice in cryptocurrency, you need to create an invoice object and provide
+      /// the user with the hosted url where they will be able to pay. Once an invoice is
+      /// viewed at the hosted url, a charge will be generated on the invoice.
+      /// </summary>
+      /// <param name="invoice">The invoice to create</param>
+      /// <returns></returns>
+      public virtual Task<Response<Invoice>> CreateInvoiceAsync(CreateInvoice invoice, CancellationToken cancellationToken = default)
+      {
+         return InvoicesEndpoint
+            .PostJsonAsync(invoice, cancellationToken)
+            .ReceiveJson<Response<Invoice>>();
+      }
+
+      /// <summary>
+      /// Voids an invoice that has been previously created. Supply the unique invoice code that
+      /// was returned when the invoice was created.
+      /// Note: Only invoices with OPEN or VIEWED status can be voided. Once a payment is detected,
+      /// the invoice can no longer be voided.
+      /// </summary>
+      /// <param name="codeOrId">Invoice code or id</param>
+      public virtual Task<Response<Invoice>> VoidInvoiceAsync(string codeOrId, CancellationToken cancellationToken = default)
+      {
+         return InvoicesEndpoint
+            .AppendPathSegments(codeOrId, "void")
+            .PostAsync(null, cancellationToken)
+            .ReceiveJson<Response<Invoice>>();
+      }
+      
+
+      /// <summary>
+      /// Resolve an invoice that has been previously marked as unresolved. Supply the unique
+      /// invoice code that was returned when the invoice was created.
+      /// Note: Only invoices with an unresolved charge can be successfully resolved.For more
+      /// on unresolved charges, check out at Charge timeline: https://commerce.coinbase.com/docs/api/#charge-timeline
+      /// </summary>
+      /// <param name="codeOrId">Invoice code or id</param>
+      public virtual Task<Response<Invoice>> ResolveInvoiceAsync(string codeOrId, CancellationToken cancellationToken = default)
+      {
+         return InvoicesEndpoint
+            .AppendPathSegments(codeOrId, "resolve")
+            .PostAsync(null, cancellationToken)
+            .ReceiveJson<Response<Invoice>>();
+      }
+
+
+
+
 
 
       /// <summary>

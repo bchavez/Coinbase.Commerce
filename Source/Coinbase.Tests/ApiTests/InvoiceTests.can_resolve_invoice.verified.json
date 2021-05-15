@@ -1,0 +1,107 @@
+{
+  "data": {
+    "id": "Guid_1",
+    "resource": "invoice",
+    "code": "fff",
+    "status": "PAID",
+    "business_name": "Some Company, LLC",
+    "customer_name": "Sam User",
+    "customer_email": "user@email.com",
+    "memo": "Only a test memo",
+    "local_price": {
+      "amount": 10.00,
+      "currency": "USD"
+    },
+    "hosted_url": "https://commerce.coinbase.com/invoices/fff",
+    "created_at": "DateTimeOffset_1",
+    "updated_at": "DateTimeOffset_2",
+    "charge": {
+      "addresses": {
+        "ethereum": "fff",
+        "usdc": "fff",
+        "dai": "fff",
+        "bitcoincash": "fff",
+        "litecoin": "fff",
+        "bitcoin": "fff"
+      },
+      "code": "fff",
+      "created_at": "DateTime_1",
+      "exchange_rates": {
+        "BCH-USD": "1204.91",
+        "BTC-USD": "48026.44",
+        "DAI-USD": "1.0006375",
+        "ETH-USD": "3785.475",
+        "LTC-USD": "305.415",
+        "USDC-USD": "1.0"
+      },
+      "expires_at": "DateTime_2",
+      "hosted_url": "https://commerce.coinbase.com/charges/fff",
+      "id": "Guid_2",
+      "invoice": {
+        "id": "Guid_3",
+        "code": "fff"
+      },
+      "metadata": {
+        "name": "Some Customer",
+        "email": "user@email.com"
+      },
+      "organization_name": "Some Company Inc",
+      "payment_threshold": {
+        "overpayment_absolute_threshold": {
+          "amount": "5.00",
+          "currency": "USD"
+        },
+        "overpayment_relative_threshold": "0.005",
+        "underpayment_absolute_threshold": {
+          "amount": "5.00",
+          "currency": "USD"
+        },
+        "underpayment_relative_threshold": "0.005"
+      },
+      "payments": [],
+      "pricing": {
+        "local": {
+          "amount": "10.00",
+          "currency": "USD"
+        },
+        "ethereum": {
+          "amount": "0.002642000",
+          "currency": "ETH"
+        },
+        "usdc": {
+          "amount": "10.000000",
+          "currency": "USDC"
+        },
+        "dai": {
+          "amount": "9.993629061473310764",
+          "currency": "DAI"
+        },
+        "bitcoincash": {
+          "amount": "0.00829938",
+          "currency": "BCH"
+        },
+        "litecoin": {
+          "amount": "0.03274233",
+          "currency": "LTC"
+        },
+        "bitcoin": {
+          "amount": "0.00020822",
+          "currency": "BTC"
+        }
+      },
+      "pricing_type": "fixed_price",
+      "resource": "charge",
+      "support_email": "some@user.com",
+      "timeline": [
+        {
+          "status": "NEW",
+          "time": "DateTime_1"
+        },
+        {
+          "status": "EXPIRED",
+          "time": "DateTime_3"
+        }
+      ]
+    }
+  }
+}

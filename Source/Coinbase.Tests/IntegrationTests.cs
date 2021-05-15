@@ -74,6 +74,20 @@ namespace Coinbase.Tests
       }
 
       [Test]
+      public async Task list_invoices()
+      {
+         var invoices = await commerceApi.ListInvoicesAsync();
+         invoices.Dump();
+      }
+
+      [Test]
+      public async Task show_invoice()
+      {
+         var invoice = await commerceApi.GetInvoiceAsync("FFFFFF");
+         invoice.Dump();
+      }
+
+      [Test]
       public void can_verify_a_webhook()
       {
          WebhookHelper.IsValid(webhookSecret, WebhookData.WebhookHeaderSignature, WebhookData.Webhook)

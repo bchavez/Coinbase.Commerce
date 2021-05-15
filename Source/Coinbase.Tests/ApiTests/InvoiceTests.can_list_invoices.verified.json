@@ -1,0 +1,117 @@
+{
+  "pagination": {
+    "order": "desc",
+    "total": 1,
+    "yielded": 1,
+    "limit": 25,
+    "previous_uri": "https://api.commerce.coinbase.com/invoices?ending_before=0170501F-5633-4EB3-A0ED-A0BDFF3C0A9B",
+    "next_uri": "https://api.commerce.coinbase.com/invoices?starting_after=0154CE41-FD42-4E0A-BAE1-7B50677D6AD5",
+    "cursor_range": [
+      "Guid_1",
+      "Guid_2"
+    ]
+  },
+  "data": [
+    {
+      "id": "Guid_3",
+      "resource": "invoice",
+      "code": "C0DEC0DE",
+      "status": "VIEWED",
+      "business_name": "Some Business Inc",
+      "customer_name": "Customer Name",
+      "customer_email": "customer@email.org",
+      "memo": "Only a test memo",
+      "local_price": {
+        "amount": 10.00,
+        "currency": "USD"
+      },
+      "hosted_url": "https://commerce.coinbase.com/invoices/C0DEC0DE",
+      "created_at": "DateTimeOffset_1",
+      "updated_at": "DateTimeOffset_2",
+      "charge": {
+        "addresses": {
+          "ethereum": "ffffffffffffff",
+          "usdc": "fffffffffffffffffff",
+          "dai": "fffffffffffffffffffffffff",
+          "bitcoincash": "fffffffffffffffffffffffff",
+          "litecoin": "ffffffffffffffffffffff",
+          "bitcoin": "fffffffffffffffffffffffffff"
+        },
+        "code": "C0DEC0DE",
+        "created_at": "DateTime_1",
+        "exchange_rates": {
+          "BCH-USD": "1204.91",
+          "BTC-USD": "48026.44",
+          "DAI-USD": "1.0006375",
+          "ETH-USD": "3785.475",
+          "LTC-USD": "305.415",
+          "USDC-USD": "1.0"
+        },
+        "expires_at": "DateTime_2",
+        "hosted_url": "https://commerce.coinbase.com/charges/C0DEC0DE",
+        "id": "Guid_4",
+        "invoice": {
+          "id": "Guid_5",
+          "code": "C0DEC0DE"
+        },
+        "metadata": {
+          "name": "John Doe Customer",
+          "email": "some@email.com"
+        },
+        "organization_name": "Organization Name",
+        "payment_threshold": {
+          "overpayment_absolute_threshold": {
+            "amount": "5.00",
+            "currency": "USD"
+          },
+          "overpayment_relative_threshold": "0.005",
+          "underpayment_absolute_threshold": {
+            "amount": "5.00",
+            "currency": "USD"
+          },
+          "underpayment_relative_threshold": "0.005"
+        },
+        "payments": [],
+        "pricing": {
+          "local": {
+            "amount": "10.00",
+            "currency": "USD"
+          },
+          "ethereum": {
+            "amount": "0.002642000",
+            "currency": "ETH"
+          },
+          "usdc": {
+            "amount": "10.000000",
+            "currency": "USDC"
+          },
+          "dai": {
+            "amount": "9.993629061473310764",
+            "currency": "DAI"
+          },
+          "bitcoincash": {
+            "amount": "0.00829938",
+            "currency": "BCH"
+          },
+          "litecoin": {
+            "amount": "0.03274233",
+            "currency": "LTC"
+          },
+          "bitcoin": {
+            "amount": "0.00020822",
+            "currency": "BTC"
+          }
+        },
+        "pricing_type": "fixed_price",
+        "resource": "charge",
+        "support_email": "business@email.org",
+        "timeline": [
+          {
+            "status": "NEW",
+            "time": "DateTime_1"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -11,15 +11,23 @@
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Flurl" Version="3.0.1" />
     <PackageReference Include="Flurl.Http" Version="3.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NUnit" Version="3.13.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-    <PackageReference Include="NunitXml.TestLogger" Version="2.1.80" />
+    <PackageReference Include="NunitXml.TestLogger" Version="3.0.97" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Verify.NUnit" Version="11.13.0" />
     <PackageReference Include="Z.ExtensionMethods.WithTwoNamespace" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Coinbase.Commerce\Coinbase.Commerce.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="**\*.server.*">
+      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile)%(ParentExtension)</DependentUpon>
+    </None>
   </ItemGroup>
 </Project>
